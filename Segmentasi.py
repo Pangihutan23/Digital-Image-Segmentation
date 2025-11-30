@@ -19,7 +19,7 @@ def normalize(image):
     image = np.clip(image, 0, 255)
     return image.astype(np.uint8)
 
-def manual_convolve(img, kernel):
+def convolve(img, kernel):
     h, w = img.shape
     kh, kw = kernel.shape
     pad_h = kh // 2
@@ -39,30 +39,30 @@ def manual_convolve(img, kernel):
 def edge_roberts(img):
     kx = np.array([[1, 0], [0, -1]])
     ky = np.array([[0, 1], [-1, 0]])
-    gx = manual_convolve(img, kx)
-    gy = manual_convolve(img, ky)
+    gx = convolve(img, kx)
+    gy = convolve(img, ky)
     return np.sqrt(gx**2 + gy**2)
 
 def edge_prewitt(img):
     kx = np.array([[-1, 0, 1], [-1, 0, 1], [-1, 0, 1]])
     ky = np.array([[-1, -1, -1], [0, 0, 0], [1, 1, 1]])
-    gx = manual_convolve(img, kx)
-    gy = manual_convolve(img, ky)
+    gx = convolve(img, kx)
+    gy = convolve(img, ky)
     return np.sqrt(gx**2 + gy**2)
 
 def edge_sobel(img):
     kx = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
     ky = np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]])
-    gx = manual_convolve(img, kx)
-    gy = manual_convolve(img, ky)
+    gx = convolve(img, kx)
+    gy = convolve(img, ky)
     return np.sqrt(gx**2 + gy**2)
 
 def edge_frei_chen(img):
     sqrt2 = np.sqrt(2)
     kx = np.array([[-1, 0, 1], [-sqrt2, 0, sqrt2], [-1, 0, 1]])
     ky = np.array([[-1, -sqrt2, -1], [0, 0, 0], [1, sqrt2, 1]])
-    gx = manual_convolve(img, kx)
-    gy = manual_convolve(img, ky)
+    gx = convolve(img, kx)
+    gy = convolve(img, ky)
     return np.sqrt(gx**2 + gy**2)
 
 
